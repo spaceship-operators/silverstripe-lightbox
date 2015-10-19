@@ -11,6 +11,11 @@ class Lightbox extends DataObject implements PermissionProvider {
 		'Content' => 'HTMLText',
 	);
 
+	private static $summary_fields = array(
+		'Title' => 'Title',
+		'ClassName' => 'Type',
+	);
+
 	private static $defaults = array(
 		'CloseButtonLabel' => 'Close',
 	);
