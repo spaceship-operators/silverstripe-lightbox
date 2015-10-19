@@ -1,6 +1,6 @@
 {
   "name": "silverstripe-lightbox",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Frontend dependencies for developing the SilverStripe Lightbox module",
   "main": "javascript/ltbox.js",
   "repository": {
