@@ -1,0 +1,23 @@
+{
+	"name": "silverstripe-rebelalliance/lightbox",
+	"description": "Provides an interface to create modal/popup boxes with customisable content within.",
+	"type": "silverstripe-module",
+	"keywords": ["silverstripe", "lightbox", "popup", "modal"],
+	"authors": [
+		{
+			"name": "Frank Mullenger",
+			"email": "frank@silverstripe.com"
+		},
+		{
+			"name": "Oly Su",
+			"email": "oly@silverstripe.com"
+		},
+		{
+			"name": "Christopher Joe",
+			"email": "cjoe@silverstripe.com"
+		}
+	],
+	"require": {
+		"silverstripe/framework": "~3.1"
+	}
+}
