@@ -18,7 +18,6 @@ class LightboxAdmin extends ModelAdmin {
 		$gridfield->addComponent(new GridFieldAddNewMultiClass(), 'GridFieldExportButton');
 		$gridfield->removeComponentsByType('GridFieldAddNewButton');
 
-
 		return $form;
 	}
 }

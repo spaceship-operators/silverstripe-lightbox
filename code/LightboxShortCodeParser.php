@@ -3,6 +3,10 @@
 class LightboxShortCodeParser {
 
 	static function parse_Lightbox($arguments, $content = null, $parser, $tagName = null) {
-		return ;
+		$lightbox = DataObject::get_by_id('Lightbox', $arguments['id']);
+
+		if ($lightbox && $link = $lightbox->Link()) {
+			return "lightbox:$link";
+		}
 	}
 }
