@@ -1,0 +1,11 @@
+// Tools - Extends
+// ===============
+// Global placeholders that are commonly used.
+
+%clearfix {
+	&:after {
+		clear:both;
+		content: "";
+		display: table;
+	}
+}

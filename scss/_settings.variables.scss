@@ -1,0 +1,32 @@
+// Variables
+// =========
+
+// Browser context
+
+$browser_context: 16px !default;
+
+
+// Breakpoints
+
+$screen_xs: em(480)  !default;
+$screen_sm: em(768)  !default;
+$screen_md: em(960)  !default;
+$screen_lg: em(1200) !default;
+
+$screen_xs_max: em(768 - 1)  !default;
+$screen_sm_max: em(960 - 1)  !default;
+$screen_md_max: em(1200 - 1) !default;
+
+
+// Colors
+
+$black: #4a4a4a !default;
+$white: #fff    !default;
+
+$primary: #01755a !default;
+$bg_grey: #f6f6f7 !default;
+
+
+// Z Index
+
+$zindex_lightbox: 1000 !default;

@@ -1,0 +1,30 @@
+// Breakpoint
+// ==========
+// @params $min:   min-width !optional
+//         $max:   max-width !optional
+//         $oldie: Defaults to 0, use any input to enable .oldie & { @content; }
+//                 Recommend use the 'oldie' string for ease of reading
+
+@mixin breakpoint($min: 0, $max: 0, $oldie: 0) {
+	$query: "all" !default;
+
+	@if $min != 0 and $max != 0 {
+		$query: "(min-width: #{$min}) and (max-width: #{$max})";
+	}
+	@else if $min != 0 and $max == 0 {
+		$query: "(min-width: #{$min})";
+	}
+	@else if $min == 0 and $max != 0 {
+		$query: "(max-width: #{$max})";
+	}
+
+	// Output scss
+	@media #{$query} {
+		@content;
+	}
+	@if $oldie != 0 { // Complement with legacy IE support. This is handy when used together with $screen-md and up
+		.oldie & {
+			@content;
+		}
+	}
+}
