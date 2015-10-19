@@ -1,0 +1,32 @@
+{
+  "name": "silverstripe-lightbox",
+  "version": "1.0.0",
+  "description": "Frontend dependencies for developing the SilverStripe Lightbox module",
+  "main": "javascript/ltbox.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/silverstripe-rebelalliance/silverstripe-lightbox.git"
+  },
+  "keywords": [
+    "silverstripe",
+    "lightbox"
+  ],
+  "author": "SilverStripe",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/silverstripe-rebelalliance/silverstripe-lightbox/issues"
+  },
+  "homepage": "https://github.com/silverstripe-rebelalliance/silverstripe-lightbox#readme",
+  "devDependencies": {
+    "autoprefixer": "^6.0.3",
+    "gulp": "^3.9.0",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-cssnano": "^2.0.0",
+    "gulp-postcss": "^6.0.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^2.0.4"
+  },
+  "dependencies": {
+    "jquery": "^2.1.4"
+  }
+}
