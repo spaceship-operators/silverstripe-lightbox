@@ -1,5 +1,5 @@
 /**
- * Lightbox - admin javascript
+ * Lightbox - ModelAdmin javascript
  */
 +(function($) {
 	$.entwine('ss', function($) {
@@ -8,10 +8,10 @@
 				var results = this._super();
 
 				if (this.find(':input[name=LinkType]:checked').val() == 'lightbox') {
-					results.href = '[lightbox,id=' + this.find(':input[name=lightbox]').val() + ']';
+					var value = this.find(':input[name=lightbox]').val() || '';
+					results.href = '[lightbox,id=' + value + ']';
 				}
 
-				console.log(results);
 				return results;
 			}
 		});
