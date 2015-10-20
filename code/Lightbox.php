@@ -7,8 +7,13 @@ class Lightbox extends DataObject implements PermissionProvider {
 
 	private static $db = array(
 		'Title' => 'Varchar(255)',
+		'URLSegment' => 'Varchar(255)',
 		'CloseButtonLabel' => 'Varchar(255)',
 		'Content' => 'HTMLText',
+	);
+
+	private static $indexes = array(
+		"URLSegment" => true,
 	);
 
 	private static $summary_fields = array(
@@ -22,61 +27,62 @@ class Lightbox extends DataObject implements PermissionProvider {
 
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
-/*
-		$fields->replaceField(
-			'ShortDescription',
-			HTMLEditorField::create('ShortDescription', 'Card Features')
-				->setDescription('Displayed when the product is selected from a NIB dropdown.')
-				->setRows(6)
-				->addExtraClass('stacked')
-		);
 
-		$fields->replaceField(
-			'HTMLDescription',
-			HTMLEditorField::create('HTMLDescription', 'Full description')
-				->setRows(14)
-				->addExtraClass('stacked')
-		);
+		$fields->removeByName('URLSegment');
 
-		$fields->addFieldsToTab('Root.Main', array(
-			HTMLEditorField::create('PayTagIntro')
-				->setRows(6)
-				->addExtraClass('stacked'),
-			HTMLEditorField::create('PayTagInfoTip', 'Pay Tag [i] info tip')
-				->setRows(6)
-				->addExtraClass('stacked')
-		));
-
-		$fields->addFieldsToTab('Root.Airpoints', array(
-			HTMLEditorField::create('AirpointsIntro')
-				->setRows(6)
-				->addExtraClass('stacked'),
-			HTMLEditorField::create('AirpointsName')
-				->setRows(6)
-				->addExtraClass('stacked'),
-			HTMLEditorField::create('AirpointsNumber')
-				->setRows(6)
-				->addExtraClass('stacked'),
-			HTMLEditorField::create('AirpointsValidation')
-				->setRows(6)
-				->addExtraClass('stacked'),
-			HTMLEditorField::create('AirPointsMemberDetailsInfoTip', 'Airpoints Member details [i] info tip')
-				->setRows(6)
-				->addExtraClass('stacked')
-		));
-
-		$fields->addFieldsToTab('Root.Account', array(
-			HTMLEditorField::create('AccountInfo', 'Associated Accounts Info')
-				->setRows(6)
-				->addExtraClass('stacked'),
-			HTMLEditorField::create('AccountEligibility')
-				->setRows(6)
-				->addExtraClass('stacked')
-		));
-*/
 		return $fields;
 	}
 
+	public function Link() {
+		return Director::baseURL() . $this->RelativeLink();
+	}
+
+	public function RelativeLink() {
+		return Controller::join_links('lightbox', $this->URLSegment);
+	}
+
+	public function generateURLSegment($title) {
+		$filter = URLSegmentFilter::create();
+		$t = $filter->filter($title);
+
+		// Fallback to generic page name if path is empty (= no valid, convertable characters)
+		if (!$t || $t == '-' || $t == '-1') {
+			$t = "lightbox-$this->ID";
+		}
+
+		return $t;
+	}
+
+	protected function onBeforeWrite() {
+		parent::onBeforeWrite();
+
+		// If there is no URLSegment set, generate one from Title
+		if(!$this->URLSegment && $this->Title) {
+			$this->URLSegment = $this->generateURLSegment($this->Title);
+		} else if($this->isChanged('URLSegment')) {
+			$this->URLSegment = $this->generateURLSegment($this->URLSegment);
+		}
+
+		// Ensure that this object has a non-conflicting URLSegment value.
+		$count = 2;
+		while(!$this->validURLSegment()) {
+			$this->URLSegment = preg_replace('/-[0-9]+$/', null, $this->URLSegment) . '-' . $count;
+			$count++;
+		}
+
+	}
+
+	public function validURLSegment() {
+		$IDFilter     = ($this->ID) ? "AND \"Lightbox\".\"ID\" <> $this->ID" :  null;
+
+		$segment = Convert::raw2sql($this->URLSegment);
+		$existingPage = DataObject::get_one(
+			'Lightbox',
+			"\"Lightbox\".\"URLSegment\" = '$segment' $IDFilter"
+		);
+
+		return !($existingPage);
+	}
 
 	public function canEdit($member = null) {
 		return Permission::check('CMS_ACCESS_LightboxAdmin');
