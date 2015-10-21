@@ -18,11 +18,10 @@ class LightboxController extends Controller {
 
 	public function renderBox($request) {
 		$url = $request->param('URLSegment');
-		$lightbox = DataObject::get_one('Lightbox', "URLSegment = '$request'");
+		$lightbox = DataObject::get_one('Lightbox', "URLSegment = '$url'");
 
 		if ($lightbox) {
-			Debug::dump($lightbox);
-			die();
+			return $lightbox->renderWith('Lightbox');
 		}
 		$this->httpError(404, ErrorPage::response_for(404));
 	}
