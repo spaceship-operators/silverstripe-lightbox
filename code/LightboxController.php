@@ -22,7 +22,7 @@ class LightboxController extends Controller {
 		$lightbox = DataObject::get_by_id('Lightbox', $id);
 
 		if ($lightbox) {
-			return $lightbox->renderWith([get_class($lightbox), 'Lightbox']);
+			return $lightbox->renderWith(array(get_class($lightbox), 'Lightbox'));
 		}
 		$this->httpError(404, ErrorPage::response_for(404));
 	}
