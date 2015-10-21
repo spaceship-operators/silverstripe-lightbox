@@ -6,7 +6,7 @@ class LightboxShortCodeParser {
 		$lightbox = DataObject::get_by_id('Lightbox', $arguments['id']);
 
 		if ($lightbox && $link = $lightbox->Link()) {
-			return "lightbox:$link";
+			return "$link";
 		}
 	}
 }
