@@ -38,6 +38,20 @@
 				} else {
 					this._super();
 				}
+			}
+		});
+		$('form.htmleditorfield-linkform').entwine({
+			getLinkAttributes: function () {
+				var results = this._super(),
+					linkType = this.find(':input[name=LinkType]:checked').val();
+
+				if (linkType == 'lightbox') {
+					var value = this.find(':input[name=lightbox]').val() || '';
+					results.href = '[lightbox,id=' + value + ']';
+					results.class = 'lightbox';
+				}
+
+				return results;
 			},
 			getCurrentLink: function () {
 				var selectedEl = this.getSelection(),
@@ -61,19 +75,6 @@
 				} else {
 					return this._super();
 				}
-			}
-		});
-		$('form.htmleditorfield-linkform').entwine({
-			getLinkAttributes: function () {
-				var results = this._super(),
-					linkType = this.find(':input[name=LinkType]:checked').val();
-
-				if (linkType == 'lightbox') {
-					var value = this.find(':input[name=lightbox]').val() || '';
-					results.href = '[lightbox,id=' + value + ']';
-				}
-
-				return results;
 			}
 		});
 	});
