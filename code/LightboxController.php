@@ -18,8 +18,8 @@ class LightboxController extends Controller {
 
 	public function renderBox($request) {
 		$url = $request->param('URLSegment');
-		$id = preg_replace('/lightbox\-/', '', $url);
-		$lightbox = DataObject::get_one('Lightbox', "ID = '$id'");
+		$id = (int) preg_replace('/lightbox\-/', '', $url);
+		$lightbox = DataObject::get_by_id('Lightbox', $id);
 
 		if ($lightbox) {
 			return $lightbox->renderWith('Lightbox');
