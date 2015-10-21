@@ -20,4 +20,5 @@ class LightboxAdmin extends ModelAdmin {
 
 		return $form;
 	}
+
 }

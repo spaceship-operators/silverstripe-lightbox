@@ -23,10 +23,11 @@ class Lightbox extends DataObject implements PermissionProvider {
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
+		// tell the javascript to disable lightbox options for this form
+		$fields->add(new LiteralField('LightboxDisable', '<div class="lightbox-disable"></div>'));
 
 		return $fields;
 	}
-
 
 	public function canEdit($member = null) {
 		return Permission::check('CMS_ACCESS_LightboxAdmin');

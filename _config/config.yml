@@ -1,0 +1,15 @@
+---
+Name: lightboxconfig
+---
+Director:
+  rules:
+    'lightbox/$URLSegment': 'LightboxController'
+---
+Name: lightboxextensions
+---
+HtmlEditorField_Toolbar:
+  extensions:
+    - HtmlEditorField_ToolbarLightboxExtension
+HtmlEditorField:
+  extensions:
+    - HtmlEditorFieldLightboxExtension
