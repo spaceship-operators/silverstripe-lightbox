@@ -29,6 +29,20 @@ class Lightbox extends DataObject implements PermissionProvider {
 		return $fields;
 	}
 
+	public function Link() {
+		return Director::baseURL() . $this->RelativeLink();
+	}
+
+	public function RelativeLink() {
+		return Controller::join_links('lightbox', 'lightbox-'.$this->ID);
+	}
+
+	protected function onBeforeWrite() {
+		parent::onBeforeWrite();
+
+		// TODO: trigger static publisher
+	}
+
 	public function canEdit($member = null) {
 		return Permission::check('CMS_ACCESS_LightboxAdmin');
 	}
