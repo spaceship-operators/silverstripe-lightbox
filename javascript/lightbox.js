@@ -11,9 +11,29 @@
 		'</div>',
 		'</div>'].join('')
 	).appendTo('body');
+
 	$(document)
 		.on('click', 'a.lightbox', function (e) {
-			modal.show();
+			var href = $(this).attr('href'),
+				content = modal.find('.lightbox-content');
+			modal.show().addClass('lightbox-loading');
+
+			$.ajax({
+				url: href,
+				complete: function () {
+					modal.removeClass('lightbox-loading');
+				},
+				success: function (html) {
+					content.html(html);
+				},
+				error: function (jqXHR, textStatus) {
+					content.html(textStatus);
+				}
+			});
+			e.preventDefault();
+		})
+		.on('click', '.lightbox-close-btn, .lightbox-overlay', function (e) {
+			modal.hide();
 		});
 
 
