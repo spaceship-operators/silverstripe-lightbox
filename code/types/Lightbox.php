@@ -43,6 +43,10 @@ class Lightbox extends DataObject implements PermissionProvider {
 		// TODO: trigger static publisher
 	}
 
+	public function canView($member = null) {
+		return Permission::check('CMS_ACCESS_LightboxAdmin');
+	}
+
 	public function canEdit($member = null) {
 		return Permission::check('CMS_ACCESS_LightboxAdmin');
 	}
