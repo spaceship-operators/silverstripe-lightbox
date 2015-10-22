@@ -3,12 +3,13 @@
  */
 
 (function($, document, window) {
-	var modal = $(['<div class="lightbox-container" style="display:none;">',
-		'<div class="lightbox-overlay"></div>',
-		'<div class="lightbox-modal">',
-		'<a class="lightbox-close-btn" href="#">Close</a>',
-		'<div class="lightbox-content"></div>',
-		'</div>',
+	var modal = $([
+		'<div class="lightbox-container" style="display:none;">',
+			'<div class="lightbox-dialog">',
+				'<button class="lightbox-close-btn" title="Close" type="button">Close</button>',
+				'<div class="lightbox-content"></div>',
+			'</div>',
+			'<div class="lightbox-overlay"></div>',
 		'</div>'].join('')
 	).appendTo('body');
 

@@ -1,0 +1,211 @@
+/**
+ * Object - Lightbox
+ * =================
+ *
+ * Structural styling for lightbox. Theme styling is appled in _components.lightbox.scss
+ *
+ */
+
+/**
+ * Lightbox
+ * ========
+ * Nib Style theming for the Lightbox module. Styles based on the new brand design (PSF theme).
+ *
+ */
+
+/* Common extends */
+
+%cover-all {
+	bottom: 0;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	right: 0;
+	top: 0;
+	width: 100%;
+	z-index: $zindex-lightbox;
+}
+
+%close-btn-lines {
+	background: $black;
+	content: '';
+	height: 2px;
+	position: absolute;
+	top: 12px;
+	width: 24px;
+}
+
+%content-type {
+	padding: 20px;
+
+	// Remove margin top for all first typographical elements
+	> :first-child {
+		margin-top: 0;
+	}
+
+	// Remove margin bottom for all last typographical elements
+	> :last-child {
+		margin-bottom: 0;
+	}
+}
+
+
+/* Lightbox styling */
+
+.lightbox-container {
+	@extend %cover-all;
+}
+
+.lightbox-dialog {
+	background: $white;
+	left: 50%;
+	max-height: 95%;
+	max-width: $screen-md;
+	min-height: 250px;
+	position: absolute;
+	width: 95%;
+	z-index: $zindex-lightbox;
+
+	@include breakpoint(0, $screen-xs-max) {
+		height: 95%;
+		top: 2.5%;
+		transform: translate(-50%, 0);
+	}
+
+	@include breakpoint($screen-sm, 0, oldie) {
+		top: 50%;
+		transform: translate(-50%, -50%);
+	}
+
+	.lightbox-loading & {
+		background: $bg-grey;
+
+		// CSS spinner
+		&:before {
+			content: 'Loading...';
+			font-size: 10px;
+			width: 10px;
+			height: 10px;
+			border-radius: 50%;
+			left: 50%;
+			position: absolute;
+			text-indent: -9999em;
+			top: 50%;
+			-webkit-animation: load4 1.3s infinite linear;
+			animation: load4 1.3s infinite linear;
+			-webkit-transform: translateZ(0);
+			-ms-transform: translateZ(0);
+			transform: translateZ(0);
+		}
+		@-webkit-keyframes load4 {
+			0%,
+			100% {
+				box-shadow: 0 -3em 0 0.2em $primary, 2em -2em 0 0em $primary, 3em 0 0 -1em $primary, 2em 2em 0 -1em $primary, 0 3em 0 -1em $primary, -2em 2em 0 -1em $primary, -3em 0 0 -1em $primary, -2em -2em 0 0 $primary;
+			}
+			12.5% {
+				box-shadow: 0 -3em 0 0 $primary, 2em -2em 0 0.2em $primary, 3em 0 0 0 $primary, 2em 2em 0 -1em $primary, 0 3em 0 -1em $primary, -2em 2em 0 -1em $primary, -3em 0 0 -1em $primary, -2em -2em 0 -1em $primary;
+			}
+			25% {
+				box-shadow: 0 -3em 0 -0.5em $primary, 2em -2em 0 0 $primary, 3em 0 0 0.2em $primary, 2em 2em 0 0 $primary, 0 3em 0 -1em $primary, -2em 2em 0 -1em $primary, -3em 0 0 -1em $primary, -2em -2em 0 -1em $primary;
+			}
+			37.5% {
+				box-shadow: 0 -3em 0 -1em $primary, 2em -2em 0 -1em $primary, 3em 0em 0 0 $primary, 2em 2em 0 0.2em $primary, 0 3em 0 0em $primary, -2em 2em 0 -1em $primary, -3em 0em 0 -1em $primary, -2em -2em 0 -1em $primary;
+			}
+			50% {
+				box-shadow: 0 -3em 0 -1em $primary, 2em -2em 0 -1em $primary, 3em 0 0 -1em $primary, 2em 2em 0 0em $primary, 0 3em 0 0.2em $primary, -2em 2em 0 0 $primary, -3em 0em 0 -1em $primary, -2em -2em 0 -1em $primary;
+			}
+			62.5% {
+				box-shadow: 0 -3em 0 -1em $primary, 2em -2em 0 -1em $primary, 3em 0 0 -1em $primary, 2em 2em 0 -1em $primary, 0 3em 0 0 $primary, -2em 2em 0 0.2em $primary, -3em 0 0 0 $primary, -2em -2em 0 -1em $primary;
+			}
+			75% {
+				box-shadow: 0em -3em 0 -1em $primary, 2em -2em 0 -1em $primary, 3em 0em 0 -1em $primary, 2em 2em 0 -1em $primary, 0 3em 0 -1em $primary, -2em 2em 0 0 $primary, -3em 0em 0 0.2em $primary, -2em -2em 0 0 $primary;
+			}
+			87.5% {
+				box-shadow: 0em -3em 0 0 $primary, 2em -2em 0 -1em $primary, 3em 0 0 -1em $primary, 2em 2em 0 -1em $primary, 0 3em 0 -1em $primary, -2em 2em 0 0 $primary, -3em 0em 0 0 $primary, -2em -2em 0 0.2em $primary;
+			}
+		}
+		@keyframes load4 {
+			0%,
+			100% {
+				box-shadow: 0 -3em 0 0.2em $primary, 2em -2em 0 0em $primary, 3em 0 0 -1em $primary, 2em 2em 0 -1em $primary, 0 3em 0 -1em $primary, -2em 2em 0 -1em $primary, -3em 0 0 -1em $primary, -2em -2em 0 0 $primary;
+			}
+			12.5% {
+				box-shadow: 0 -3em 0 0 $primary, 2em -2em 0 0.2em $primary, 3em 0 0 0 $primary, 2em 2em 0 -1em $primary, 0 3em 0 -1em $primary, -2em 2em 0 -1em $primary, -3em 0 0 -1em $primary, -2em -2em 0 -1em $primary;
+			}
+			25% {
+				box-shadow: 0 -3em 0 -0.5em $primary, 2em -2em 0 0 $primary, 3em 0 0 0.2em $primary, 2em 2em 0 0 $primary, 0 3em 0 -1em $primary, -2em 2em 0 -1em $primary, -3em 0 0 -1em $primary, -2em -2em 0 -1em $primary;
+			}
+			37.5% {
+				box-shadow: 0 -3em 0 -1em $primary, 2em -2em 0 -1em $primary, 3em 0em 0 0 $primary, 2em 2em 0 0.2em $primary, 0 3em 0 0em $primary, -2em 2em 0 -1em $primary, -3em 0em 0 -1em $primary, -2em -2em 0 -1em $primary;
+			}
+			50% {
+				box-shadow: 0 -3em 0 -1em $primary, 2em -2em 0 -1em $primary, 3em 0 0 -1em $primary, 2em 2em 0 0em $primary, 0 3em 0 0.2em $primary, -2em 2em 0 0 $primary, -3em 0em 0 -1em $primary, -2em -2em 0 -1em $primary;
+			}
+			62.5% {
+				box-shadow: 0 -3em 0 -1em $primary, 2em -2em 0 -1em $primary, 3em 0 0 -1em $primary, 2em 2em 0 -1em $primary, 0 3em 0 0 $primary, -2em 2em 0 0.2em $primary, -3em 0 0 0 $primary, -2em -2em 0 -1em $primary;
+			}
+			75% {
+				box-shadow: 0em -3em 0 -1em $primary, 2em -2em 0 -1em $primary, 3em 0em 0 -1em $primary, 2em 2em 0 -1em $primary, 0 3em 0 -1em $primary, -2em 2em 0 0 $primary, -3em 0em 0 0.2em $primary, -2em -2em 0 0 $primary;
+			}
+			87.5% {
+				box-shadow: 0em -3em 0 0 $primary, 2em -2em 0 -1em $primary, 3em 0 0 -1em $primary, 2em 2em 0 -1em $primary, 0 3em 0 -1em $primary, -2em 2em 0 0 $primary, -3em 0em 0 0 $primary, -2em -2em 0 0.2em $primary;
+			}
+		}
+	}
+}
+
+.lightbox-close-btn {
+	background: transparent none;
+	border: none;
+	height: 24px;
+	position: absolute;
+	right: 6px;
+	text-indent: -9999em;
+	top: 6px;
+	width: 24px;
+
+	&:before {
+		@extend %close-btn-lines;
+		@include rotate(45deg);
+		left: 0;
+	}
+
+	&:after {
+		@extend %close-btn-lines;
+		@include rotate(-45deg);
+		right: 0;
+	}
+}
+
+.lightbox-overlay {
+	@extend %cover-all;
+	background: $black;
+	background: rgba(0, 0, 0, .8);
+}
+
+
+/* Lightbox content */
+
+.lightbox-content {
+	@extend .clearfix;
+
+	@include breakpoint(0, $screen-xs-max) {
+		bottom: 0;
+		height: calc(100% - 40px);
+		left: 0;
+		overflow: scroll;
+		overflow-x: hidden;
+		position: absolute;
+		width: 100%;
+	}
+}
+
+// Type: Standard
+.lightbox-content-cms {
+	@extend %content-type;
+}
+
+// Type: App init
+.lightbox-content-init {
+	@extend %content-type;
+}

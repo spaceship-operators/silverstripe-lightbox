@@ -28,3 +28,10 @@
 		}
 	}
 }
+
+// Rotate
+@mixin rotate($degrees) {
+	-webkit-transform: rotate($degrees);
+	-ms-transform: rotate($degrees); // IE9+
+	transform: rotate($degrees);
+}

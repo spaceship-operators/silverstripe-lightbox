@@ -8,13 +8,13 @@
 @import "settings.variables";
 
 // Tools
-@import "tools.breakpoint";
+@import "tools.mixins";
 @import "tools.extends";
 @import "tools.functions";
 
 // Objects
 @import "objects.buttons";
-@import "objects.ltbox";
+@import "objects.lightbox";
 
 // Components
-@import "components.ltbox";
+@import "components.lightbox";

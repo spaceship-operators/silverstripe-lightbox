@@ -1,0 +1,214 @@
+/**
+ * Lightbox
+ * ========
+ * Styling for the SilverStripe Lightbox module. Using ITCSS architecture and BEM naming convention.
+ */
+/**
+ * Object - Lightbox
+ * =================
+ *
+ * Structural styling for lightbox. Theme styling is appled in _components.lightbox.scss
+ *
+ */
+/**
+ * Lightbox
+ * ========
+ * Nib Style theming for the Lightbox module. Styles based on the new brand design (PSF theme).
+ *
+ */
+/* Common extends */
+.lightbox-container, .lightbox-overlay {
+		bottom: 0;
+		height: 100%;
+		left: 0;
+		position: fixed;
+		right: 0;
+		top: 0;
+		width: 100%;
+		z-index: 1000;
+}
+
+.lightbox-close-btn:before, .lightbox-close-btn:after {
+		background: #4a4a4a;
+		content: '';
+		height: 2px;
+		position: absolute;
+		top: 12px;
+		width: 24px;
+}
+
+.lightbox-content-cms, .lightbox-content-init {
+		padding: 20px;
+}
+
+.lightbox-content-cms > :first-child, .lightbox-content-init > :first-child {
+		margin-top: 0;
+}
+
+.lightbox-content-cms > :last-child, .lightbox-content-init > :last-child {
+		margin-bottom: 0;
+}
+
+/* Lightbox styling */
+.lightbox-dialog {
+		background: #fff;
+		left: 50%;
+		max-height: 95%;
+		max-width: em(960);
+		min-height: 250px;
+		position: absolute;
+		width: 95%;
+		z-index: 1000;
+}
+
+@media (max-width: em(767)) {
+		.lightbox-dialog {
+				height: 95%;
+				top: 2.5%;
+				-webkit-transform: translate(-50%, 0);
+				    -ms-transform: translate(-50%, 0);
+				        transform: translate(-50%, 0);
+		}
+}
+
+@media (min-width: em(768)) {
+		.lightbox-dialog {
+				top: 50%;
+				-webkit-transform: translate(-50%, -50%);
+				    -ms-transform: translate(-50%, -50%);
+				        transform: translate(-50%, -50%);
+		}
+}
+
+.oldie .lightbox-dialog {
+		top: 50%;
+		-webkit-transform: translate(-50%, -50%);
+		    -ms-transform: translate(-50%, -50%);
+		        transform: translate(-50%, -50%);
+}
+
+.lightbox-loading .lightbox-dialog {
+		background: #f6f6f7;
+}
+
+.lightbox-loading .lightbox-dialog:before {
+		content: 'Loading...';
+		font-size: 10px;
+		width: 10px;
+		height: 10px;
+		border-radius: 50%;
+		left: 50%;
+		position: absolute;
+		text-indent: -9999em;
+		top: 50%;
+		-webkit-animation: load4 1.3s infinite linear;
+		animation: load4 1.3s infinite linear;
+		-webkit-transform: translateZ(0);
+		-ms-transform: translateZ(0);
+		transform: translateZ(0);
+}
+
+@-webkit-keyframes load4 {
+		0%,
+		100% {
+				box-shadow: 0 -3em 0 0.2em #01755a, 2em -2em 0 0em #01755a, 3em 0 0 -1em #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 -1em #01755a, -3em 0 0 -1em #01755a, -2em -2em 0 0 #01755a;
+		}
+		12.5% {
+				box-shadow: 0 -3em 0 0 #01755a, 2em -2em 0 0.2em #01755a, 3em 0 0 0 #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 -1em #01755a, -3em 0 0 -1em #01755a, -2em -2em 0 -1em #01755a;
+		}
+		25% {
+				box-shadow: 0 -3em 0 -0.5em #01755a, 2em -2em 0 0 #01755a, 3em 0 0 0.2em #01755a, 2em 2em 0 0 #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 -1em #01755a, -3em 0 0 -1em #01755a, -2em -2em 0 -1em #01755a;
+		}
+		37.5% {
+				box-shadow: 0 -3em 0 -1em #01755a, 2em -2em 0 -1em #01755a, 3em 0em 0 0 #01755a, 2em 2em 0 0.2em #01755a, 0 3em 0 0em #01755a, -2em 2em 0 -1em #01755a, -3em 0em 0 -1em #01755a, -2em -2em 0 -1em #01755a;
+		}
+		50% {
+				box-shadow: 0 -3em 0 -1em #01755a, 2em -2em 0 -1em #01755a, 3em 0 0 -1em #01755a, 2em 2em 0 0em #01755a, 0 3em 0 0.2em #01755a, -2em 2em 0 0 #01755a, -3em 0em 0 -1em #01755a, -2em -2em 0 -1em #01755a;
+		}
+		62.5% {
+				box-shadow: 0 -3em 0 -1em #01755a, 2em -2em 0 -1em #01755a, 3em 0 0 -1em #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 0 #01755a, -2em 2em 0 0.2em #01755a, -3em 0 0 0 #01755a, -2em -2em 0 -1em #01755a;
+		}
+		75% {
+				box-shadow: 0em -3em 0 -1em #01755a, 2em -2em 0 -1em #01755a, 3em 0em 0 -1em #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 0 #01755a, -3em 0em 0 0.2em #01755a, -2em -2em 0 0 #01755a;
+		}
+		87.5% {
+				box-shadow: 0em -3em 0 0 #01755a, 2em -2em 0 -1em #01755a, 3em 0 0 -1em #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 0 #01755a, -3em 0em 0 0 #01755a, -2em -2em 0 0.2em #01755a;
+		}
+}
+
+@keyframes load4 {
+		0%,
+		100% {
+				box-shadow: 0 -3em 0 0.2em #01755a, 2em -2em 0 0em #01755a, 3em 0 0 -1em #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 -1em #01755a, -3em 0 0 -1em #01755a, -2em -2em 0 0 #01755a;
+		}
+		12.5% {
+				box-shadow: 0 -3em 0 0 #01755a, 2em -2em 0 0.2em #01755a, 3em 0 0 0 #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 -1em #01755a, -3em 0 0 -1em #01755a, -2em -2em 0 -1em #01755a;
+		}
+		25% {
+				box-shadow: 0 -3em 0 -0.5em #01755a, 2em -2em 0 0 #01755a, 3em 0 0 0.2em #01755a, 2em 2em 0 0 #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 -1em #01755a, -3em 0 0 -1em #01755a, -2em -2em 0 -1em #01755a;
+		}
+		37.5% {
+				box-shadow: 0 -3em 0 -1em #01755a, 2em -2em 0 -1em #01755a, 3em 0em 0 0 #01755a, 2em 2em 0 0.2em #01755a, 0 3em 0 0em #01755a, -2em 2em 0 -1em #01755a, -3em 0em 0 -1em #01755a, -2em -2em 0 -1em #01755a;
+		}
+		50% {
+				box-shadow: 0 -3em 0 -1em #01755a, 2em -2em 0 -1em #01755a, 3em 0 0 -1em #01755a, 2em 2em 0 0em #01755a, 0 3em 0 0.2em #01755a, -2em 2em 0 0 #01755a, -3em 0em 0 -1em #01755a, -2em -2em 0 -1em #01755a;
+		}
+		62.5% {
+				box-shadow: 0 -3em 0 -1em #01755a, 2em -2em 0 -1em #01755a, 3em 0 0 -1em #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 0 #01755a, -2em 2em 0 0.2em #01755a, -3em 0 0 0 #01755a, -2em -2em 0 -1em #01755a;
+		}
+		75% {
+				box-shadow: 0em -3em 0 -1em #01755a, 2em -2em 0 -1em #01755a, 3em 0em 0 -1em #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 0 #01755a, -3em 0em 0 0.2em #01755a, -2em -2em 0 0 #01755a;
+		}
+		87.5% {
+				box-shadow: 0em -3em 0 0 #01755a, 2em -2em 0 -1em #01755a, 3em 0 0 -1em #01755a, 2em 2em 0 -1em #01755a, 0 3em 0 -1em #01755a, -2em 2em 0 0 #01755a, -3em 0em 0 0 #01755a, -2em -2em 0 0.2em #01755a;
+		}
+}
+
+.lightbox-close-btn {
+		background: transparent none;
+		border: none;
+		height: 24px;
+		position: absolute;
+		right: 6px;
+		text-indent: -9999em;
+		top: 6px;
+		width: 24px;
+}
+
+.lightbox-close-btn:before {
+		-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		transform: rotate(45deg);
+		left: 0;
+}
+
+.lightbox-close-btn:after {
+		-webkit-transform: rotate(-45deg);
+		-ms-transform: rotate(-45deg);
+		transform: rotate(-45deg);
+		right: 0;
+}
+
+.lightbox-overlay {
+		background: #4a4a4a;
+		background: rgba(0, 0, 0, 0.8);
+}
+
+/* Lightbox content */
+@media (max-width: em(767)) {
+		.lightbox-content {
+				bottom: 0;
+				height: calc(100% - 40px);
+				left: 0;
+				overflow: scroll;
+				overflow-x: hidden;
+				position: absolute;
+				width: 100%;
+		}
+}
+
+/**
+ * Component - Lightbox
+ * ====================
+ * Theme styling for Lightbox
+ */
