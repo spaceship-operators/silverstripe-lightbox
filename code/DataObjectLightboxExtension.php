@@ -13,6 +13,8 @@ class DataObjectLightboxExtension extends DataExtension {
 		'Lightboxes' => 'Lightbox'
 	);
 
+	protected $_tmp_box_tracking = array();
+
 	private $parser = null;
 
 	/**
