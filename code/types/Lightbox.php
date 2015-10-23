@@ -16,6 +16,10 @@ class Lightbox extends DataObject implements PermissionProvider {
 		'ClassName' => 'Type',
 	);
 
+	private static $many_many = array(
+		'SiteTrees' => 'SiteTree',
+	);
+
 	private static $defaults = array(
 		'CloseButtonLabel' => 'Close',
 	);
@@ -25,6 +29,22 @@ class Lightbox extends DataObject implements PermissionProvider {
 
 		// tell the javascript to disable lightbox options for this form
 		$fields->add(new LiteralField('LightboxDisable', '<div class="lightbox-disable"></div>'));
+
+		// check for relationship tabs
+		$relationships = $this->many_many();
+		if (!empty($relationships)) {
+			foreach($relationships as $name => $type) {
+				$itemsField = $fields->dataFieldByName($name);
+				if ($itemsField) {
+					$itemsFieldConfig = GridFieldConfig_RecordEditor::create();
+					$itemsField->setConfig($itemsFieldConfig)->setTitle(false);
+
+					// remove Add and Delete buttons, as this is done automatically
+					$itemsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
+					$itemsFieldConfig->removeComponentsByType('GridFieldAddNewButton');
+				}
+			}
+		}
 
 		return $fields;
 	}
@@ -37,12 +57,6 @@ class Lightbox extends DataObject implements PermissionProvider {
 		return Controller::join_links('lightbox', 'lightbox-'.$this->ID);
 	}
 
-	protected function onBeforeWrite() {
-		parent::onBeforeWrite();
-
-		// TODO: trigger static publisher
-	}
-
 	public function canView($member = null) {
 		return Permission::check('CMS_ACCESS_LightboxAdmin');
 	}
@@ -52,7 +66,20 @@ class Lightbox extends DataObject implements PermissionProvider {
 	}
 
 	public function canDelete($member = null) {
-		return Permission::check('CMS_ACCESS_LightboxAdmin');
+		$relationships = $this->many_many();
+		$has_relations = false;
+
+		if (!empty($relationships)) {
+			foreach($relationships as $name => $type) {
+				$relation = $this->{$name}();
+				if ($relation->exists() && $relation->count()) {
+					$has_relations = true;
+					break;
+				}
+			}
+		}
+
+		return Permission::check('CMS_ACCESS_LightboxAdmin') && !$has_relations;
 	}
 
 	public function canCreate($member = null) {
