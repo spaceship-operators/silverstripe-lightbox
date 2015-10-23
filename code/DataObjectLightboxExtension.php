@@ -77,7 +77,7 @@ class DataObjectLightboxExtension extends DataExtension {
 		$this->_tmp_box_tracking = array();
 		$parser->parse($html);
 
-		//use the regular get_one method here, we want to include link tracking even for Rates that will only appear in the future
+		// get list of Lightboxes found to be used.
 		$boxes = DataObject::get(
 			'Lightbox',
 			sprintf('("ID" IN (%s))', implode(',',$this->_tmp_box_tracking))
