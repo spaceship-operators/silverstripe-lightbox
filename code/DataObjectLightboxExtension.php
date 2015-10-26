@@ -78,15 +78,16 @@ class DataObjectLightboxExtension extends DataExtension {
 		$parser->parse($html);
 
 		// get list of Lightboxes found to be used.
-		$boxes = DataObject::get(
-			'Lightbox',
-			sprintf('("ID" IN (%s))', implode(',',$this->_tmp_box_tracking))
-		);
-		if ($boxes->exists()) {
-			return $boxes;
-		} else {
-			return array();
+		if (!empty($this->_tmp_box_tracking)) {
+			$boxes = DataObject::get(
+				'Lightbox',
+				sprintf('("ID" IN (%s))', implode(',', $this->_tmp_box_tracking))
+			);
+			if ($boxes->exists()) {
+				return $boxes;
+			}
 		}
+		return array();
 	}
 
 	/**
