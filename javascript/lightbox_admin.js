@@ -57,8 +57,11 @@
 					linkType = this.find(':input[name=LinkType]:checked').val();
 
 				if (linkType == 'lightbox') {
-					var value = this.find(':input[name=lightbox]').val() || '';
-					results.href = '[lightbox,id=' + value + ']';
+					var value = this.find(':input[name=lightbox]').val();
+					if (value) {
+						results['data-url'] = '[lightbox,id=' + value + ']';
+					}
+					results.href = '#';
 					results.class = 'lightbox';
 				}
 
@@ -96,6 +99,11 @@
 			 */
 			redraw: function () {
 				this._super();
+				var lightboxes = this.find('.field#lightbox');
+
+				if (lightboxes.find('option').length === 0) {
+					this.find('li.vallightbox').hide();
+				}
 
 				var linkType = this.find(':input[name=LinkType]:checked').val();
 

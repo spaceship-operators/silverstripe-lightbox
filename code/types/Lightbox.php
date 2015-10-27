@@ -15,8 +15,13 @@ class Lightbox extends DataObject implements PermissionProvider {
 	);
 
 	private static $summary_fields = array(
-		'Title' => 'Title',
-		'ClassName' => 'Type',
+		'Title',
+		'ClassName',
+	);
+
+	public static $searchable_fields = array(
+		'Title',
+		'ClassName',
 	);
 
 	private static $many_many = array(
@@ -50,6 +55,15 @@ class Lightbox extends DataObject implements PermissionProvider {
 		}
 
 		return $fields;
+	}
+
+	public function fieldLabels($includerelations = true) {
+		$labels = parent::fieldLabels($includerelations);
+
+		// ClassName is ignored in translation files by default
+		$labels['ClassName'] = _t('Lightbox.db_ClassName', 'Type');
+
+		return $labels;
 	}
 
 	public function Link() {

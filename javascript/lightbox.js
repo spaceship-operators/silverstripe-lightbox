@@ -42,7 +42,8 @@
 	// Bind click events
 	$(document)
 		.on('click', 'a.lightbox', function (e) {
-			var href = $(this).attr('href'),
+			// data url property first, otherwise href as a fallback
+			var href = $(this).data('url') || $(this).attr('href'),
 				content = modal.find('.lightbox-content').html('');
 			modal.show().addClass('lightbox-loading');
 
@@ -51,7 +52,7 @@
 
 			if (isAndroid) {
 				screenPos = $(window).scrollTop(); // Get current screen position
-				$scroll.scrollTop(0); // Scroll view to the top of the page
+				$scroll.scrollTop(modal.scrollTop()); // Scroll view to the top of the page
 			}
 
 			// get the content linked and inject it to the content of the lightbox.

@@ -1,0 +1,6 @@
+en:
+  Lightbox:
+    db_Title: Heading
+    db_CloseButtonLabel: 'Close Button'
+    db_Content: Content
+    db_ClassName: Type
