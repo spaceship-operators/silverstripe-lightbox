@@ -7,7 +7,8 @@
 (function($, document, window) {
 
 	// Common selectors
-	var $html = $('html');
+	var $html = $('html'),
+		$scroll = $(window).add('html').add('body');
 
 	// Modal mark-up, may move this to somewhere else laster
 	var modal = $([
@@ -28,7 +29,7 @@
 	 * Mainly to target devices on Android OS, as it does not support `position: fixed;` very well.
 	 *
  	 */
-	var ua = navigator.userAgent.toLowerCase(),
+	var ua = window.navigator.userAgent.toLowerCase(),
 		isAndroid = ua.indexOf('android'),
 		screenPos;
 
@@ -50,7 +51,7 @@
 
 			if (isAndroid) {
 				screenPos = $(window).scrollTop(); // Get current screen position
-				window.location = '#page-top'; // Anchor to top of the `position: absolute;` Android lightbox
+				$scroll.scrollTop(0); // Scroll view to the top of the page
 			}
 
 			// get the content linked and inject it to the content of the lightbox.
@@ -78,7 +79,7 @@
 
 			if (isAndroid) {
 				// Scroll back to screen position before lightbox is opened
-				$('html, body').scrollTop(screenPos);
+				$scroll.scrollTop(screenPos);
 			}
 
 			e.preventDefault();
