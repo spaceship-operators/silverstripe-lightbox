@@ -5,10 +5,14 @@ Provides an interface to create modal/popup boxes with customisable content with
 ## Requirements
 
 To get the lightbox working on your page, you'll need to include this javascript file.
-```Requirements::javascript('lightbox/javascript/lightbox.js');```
+```
+Requirements::javascript('lightbox/javascript/lightbox.js');
+```
 
 We've provided some default styling for the lightbox, you can use that by including this css file.
-```Requirements::css('lightbox/css/lightbox.css');```
+```
+Requirements::css('lightbox/css/lightbox.css');
+```
 
 ## Extending more DataObjects
 If you want to be able to use Lightbox on other DataObjects that are not extended from SiteTree, you can do that by following these steps:
@@ -35,3 +39,22 @@ Item:
 ```
 
 DataObjectLightboxExtension contains a standard `onAfterWrite()` event that handling creating a link between the DataObject and Lightbox.
+
+## Adding more Lightbox layouts/types
+
+Create a new class which extends from the Lightbox class, for example this CustomLightbox class
+```
+<?php
+
+class CustomLightbox extends Lightbox {
+
+	public static $singular_name = 'Custom Lightbox';
+	public static $plural_name = 'Custom Lightboxes';
+
+	private static $db = array(
+		'Content2' => 'HTMLText',
+		'Button2Text' => 'Varchar(255)',
+		'Button2Link' => 'Varchar(255)',
+	);
+}
+```
