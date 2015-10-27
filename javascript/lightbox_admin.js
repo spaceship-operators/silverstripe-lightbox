@@ -75,6 +75,13 @@
 				} else {
 					return this._super();
 				}
+			},
+			redraw: function () {
+				this._super();
+
+				var linkType = this.find(':input[name=LinkType]:checked').val();
+
+				if(linkType === 'lightbox') this.find('.field#TargetBlank').hide();
 			}
 		});
 	});

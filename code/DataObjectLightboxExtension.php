@@ -84,7 +84,7 @@ class DataObjectLightboxExtension extends DataExtension {
 				sprintf('("ID" IN (%s))', implode(',', $this->_tmp_box_tracking))
 			);
 			if ($boxes->exists()) {
-				return $boxes;
+				return $boxes->toArray();
 			}
 		}
 		return array();
