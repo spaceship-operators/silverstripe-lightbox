@@ -8,7 +8,7 @@ To get the lightbox working on your page, you'll need to include this javascript
 ```Requirements::javascript('lightbox/javascript/lightbox.js');```
 
 We've provided some default styling for the lightbox, you can use that by including this css file.
-```Requirements::css('lightbox/css/ltbox.css');```
+```Requirements::css('lightbox/css/lightbox.css');```
 
 ## Extending more DataObjects
 If you want to be able to use Lightbox on other DataObjects that are not extended from SiteTree, you can do that by following these steps:
