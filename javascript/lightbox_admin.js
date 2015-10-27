@@ -1,9 +1,16 @@
 /**
  * Lightbox - ModelAdmin javascript
+ *
+ * Adds functionality to existing ModelAdmin $.entwine for the SilverStripe CMS.
  */
 +(function($) {
 	$.entwine('ss', function($) {
 		$('textarea.htmleditor').entwine({
+			/**
+			 * Overrides the default logic for opening a Link Dialog.
+			 * We need to cancel the caching of the form, depending on whether
+			 * lightbox is enabled or disabled for the screen
+			 */
 			openLinkDialog: function () {
 				var self = this,
 					dialogs = $('#cms-editor-dialogs'),
@@ -36,11 +43,15 @@
 						}
 					});
 				} else {
+					// fallback to default behaviour
 					this._super();
 				}
 			}
 		});
 		$('form.htmleditorfield-linkform').entwine({
+			/**
+			 * Set the properties of the lightbox Link
+			 */
 			getLinkAttributes: function () {
 				var results = this._super(),
 					linkType = this.find(':input[name=LinkType]:checked').val();
@@ -53,6 +64,10 @@
 
 				return results;
 			},
+			/**
+			 * Finds the selected/highlighted link in the wysiwyg and selects the proper attribute if detected
+			 * Otherwise fallback to default behaviour for other link types.
+			 */
 			getCurrentLink: function () {
 				var selectedEl = this.getSelection(),
 					href = "", target = "", title = "", action = "insert", style_class = "";
@@ -76,6 +91,9 @@
 					return this._super();
 				}
 			},
+			/**
+			 * Handle what to hide or show if the LinkType selected is a lightbox.
+			 */
 			redraw: function () {
 				this._super();
 
@@ -85,7 +103,9 @@
 			}
 		});
 	});
-	// helper functions specific to Lightbox use
+	/**
+	 *  helper functions specific to Lightbox use
+	 */
 	function addQueryParameter(uri, key, value) {
 		var re = new RegExp("([?&])" + key + "=.*?(&|$)", "i"),
 			separator = uri.indexOf('?') !== -1 ? "&" : "?";

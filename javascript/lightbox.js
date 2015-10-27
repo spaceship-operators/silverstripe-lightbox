@@ -1,8 +1,11 @@
 /**
- * Lightbox
+ * Lightbox - frontend website
+ *
+ * .lightbox-container will have the class .lightbox-loading when Content is being retreived
  */
 
 (function($, document, window) {
+	// Html for the lightbox, may move this out to somewhere else later.
 	var modal = $([
 		'<div class="lightbox-container" style="display:none;">',
 			'<div class="lightbox-dialog">',
@@ -16,9 +19,10 @@
 	$(document)
 		.on('click', 'a.lightbox', function (e) {
 			var href = $(this).attr('href'),
-				content = modal.find('.lightbox-content');
+				content = modal.find('.lightbox-content').html('');
 			modal.show().addClass('lightbox-loading');
 
+			// get the content linked and inject it to the content of the lightbox.
 			$.ajax({
 				url: href,
 				complete: function () {
@@ -31,9 +35,11 @@
 					content.html(textStatus);
 				}
 			});
+			// stop the link from following the link
 			e.preventDefault();
 		})
 		.on('click', '.lightbox-close-btn, .lightbox-overlay', function (e) {
+			// hide the modal
 			modal.hide();
 		});
 
