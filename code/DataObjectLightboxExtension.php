@@ -17,6 +17,11 @@ class DataObjectLightboxExtension extends DataExtension {
 
 	private $parser = null;
 
+	public function updateCMSFields(FieldList $fields) {
+		// check for and remove Lightbox relationship tab
+		$fields->removeByName('Lightboxes');
+	}
+
 	/**
 	 * On save of the DataObject, synchronise the tracking.
 	 */
