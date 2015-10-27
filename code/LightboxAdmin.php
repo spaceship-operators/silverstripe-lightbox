@@ -10,9 +10,11 @@ class LightboxAdmin extends ModelAdmin {
 		'Lightbox'
 	);
 
-	static $menu_title = 'Lightboxes';
+	private static $menu_title = 'Lightboxes';
 
-	static $url_segment = 'lightboxes';
+	private static $url_segment = 'lightboxes';
+
+	private static $menu_icon = 'framework/admin/images/menu-icons/16x16/blog.png';
 
 	public function getEditForm($id = null, $fields = null) {
 		$form = parent::getEditForm($id, $fields);
