@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Class to handle a ModelAdmin section on the left panel in the CMS.
+ */
+
 class LightboxAdmin extends ModelAdmin {
 
 	static $managed_models = array(

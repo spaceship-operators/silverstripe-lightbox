@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Parser for handling any lightbox links found, to replace with the correct url route
+ */
 class LightboxShortCodeParser {
 
 	static function parse_Lightbox($arguments, $content = null, $parser, $tagName = null) {

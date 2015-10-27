@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Base Lightbox class to extend from for any other Lightbox layouts that may be desired.
+ */
 class Lightbox extends DataObject implements PermissionProvider {
 
 	public static $singular_name = 'Lightbox';

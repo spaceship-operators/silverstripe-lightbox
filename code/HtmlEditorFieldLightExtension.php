@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Checks for whether Lightbox is enabled and adds the Lightbox option/fields to type.
+ *
+ * Removes Anchor link types for Lightboxes, since having a lightbox within lightbox is not within our scope yet.
+ */
 class HtmlEditorField_ToolbarLightboxExtension extends DataExtension {
 
 	public function updateLinkForm(&$form) {
@@ -13,11 +18,13 @@ class HtmlEditorField_ToolbarLightboxExtension extends DataExtension {
 			$options['lightbox'] = 'Lightbox';
 		} else {
 			// remove "anchor" for lightbox, since it's page specific
+			// TODO: perhaps move this to a separate flag?
 			unset($options['anchor']);
 		}
 		$field->setSource($options);
 		$fields->replaceField('LinkType', $field);
 
+		// add the list of lightboxes available
 		if ($enabled) {
 			$lightboxArr = DataObject::get('Lightbox')->toArray();
 			$lightboxes = array();
@@ -36,6 +43,11 @@ class HtmlEditorField_ToolbarLightboxExtension extends DataExtension {
 	}
 }
 
+/**
+ * Adds the lightbox_admin javascript to the Admin interface when a HtmlEditorField is present.
+ *
+ * This helps handle enabling lightbox for the LinkForm, and pre-populating the lightbox already selected for an existing link.
+ */
 class HtmlEditorFieldLightboxExtension extends DataExtension {
 	public function onBeforeRender () {
 		if ($this->owner instanceof HtmlEditorField) {

@@ -1,10 +1,7 @@
 <?php
 
 /**
- * Created by PhpStorm.
- * User: cjoe
- * Date: 20/10/2015
- * Time: 5:29 PM
+ * For handling the url route for lightbox content.
  */
 class LightboxController extends Controller {
 
@@ -16,6 +13,13 @@ class LightboxController extends Controller {
 		'$URLSegment' => 'renderBox'
 	);
 
+	/**
+	 * Tries to find the lightbox based on the id given.
+	 *
+	 * @param $request
+	 * @return HTMLText
+	 * @throws SS_HTTPResponse_Exception
+	 */
 	public function renderBox($request) {
 		$url = $request->param('URLSegment');
 		$id = (int) preg_replace('/lightbox\-/', '', $url);
