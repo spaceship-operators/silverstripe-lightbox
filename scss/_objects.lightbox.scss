@@ -69,7 +69,7 @@
 	max-width: $screen-md;
 	min-height: 250px;
 	position: absolute;
-	transform: translateX(-50%);
+	transform: translate(-50%, 0);
 	width: 95%;
 	z-index: $zindex-lightbox;
 
@@ -86,7 +86,7 @@
 
 	@include breakpoint($screen-sm, 0, oldie) {
 		top: 50%;
-		transform: translateY(-50%);
+		transform: translate(-50%, -50%);
 	}
 
 	.lightbox-loading & {

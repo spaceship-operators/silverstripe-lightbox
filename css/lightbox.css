@@ -62,9 +62,9 @@
 		max-width: em(960);
 		min-height: 250px;
 		position: absolute;
-		-webkit-transform: translateX(-50%);
-		    -ms-transform: translateX(-50%);
-		        transform: translateX(-50%);
+		-webkit-transform: translate(-50%, 0);
+		    -ms-transform: translate(-50%, 0);
+		        transform: translate(-50%, 0);
 		width: 95%;
 		z-index: 1000;
 }
@@ -84,17 +84,17 @@
 @media (min-width: em(768)) {
 		.lightbox-dialog {
 				top: 50%;
-				-webkit-transform: translateY(-50%);
-				    -ms-transform: translateY(-50%);
-				        transform: translateY(-50%);
+				-webkit-transform: translate(-50%, -50%);
+				    -ms-transform: translate(-50%, -50%);
+				        transform: translate(-50%, -50%);
 		}
 }
 
 .oldie .lightbox-dialog {
 		top: 50%;
-		-webkit-transform: translateY(-50%);
-		    -ms-transform: translateY(-50%);
-		        transform: translateY(-50%);
+		-webkit-transform: translate(-50%, -50%);
+		    -ms-transform: translate(-50%, -50%);
+		        transform: translate(-50%, -50%);
 }
 
 .lightbox-loading .lightbox-dialog {

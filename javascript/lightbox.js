@@ -29,8 +29,9 @@
 	 * Mainly to target devices on Android OS, as it does not support `position: fixed;` very well.
 	 *
  	 */
+
 	var ua = window.navigator.userAgent.toLowerCase(),
-		isAndroid = ua.indexOf('android'),
+		isAndroid = ua.indexOf('android') > -1,
 		screenPos;
 
 	// Android workarounds
