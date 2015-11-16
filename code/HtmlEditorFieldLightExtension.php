@@ -26,16 +26,7 @@ class HtmlEditorField_ToolbarLightboxExtension extends DataExtension {
 
 		// add the list of lightboxes available
 		if ($enabled) {
-			$lightboxArr = DataObject::get('Lightbox')->toArray();
-			$lightboxes = array();
-			foreach ($lightboxArr as $lightbox) {
-				$lightboxes[$lightbox->ID] = $lightbox->Title;
-			}
-			$fields->insertAfter(new DropdownField(
-				'lightbox',
-				'Lightbox',
-				$lightboxes
-			),
+			$fields->insertAfter(LightboxAdmin::getLightboxField('lightbox', 'Lightbox'),
 				'internal');
 
 			$form->setFields($fields);
