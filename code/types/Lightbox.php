@@ -47,9 +47,10 @@ class Lightbox extends DataObject implements PermissionProvider {
 					$itemsFieldConfig = GridFieldConfig_RecordEditor::create();
 					$itemsField->setConfig($itemsFieldConfig)->setTitle(false);
 
-					// remove Add and Delete buttons, as this is done automatically
+					// Remove buttons to manage the relationship, as this is done automatically
 					$itemsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
 					$itemsFieldConfig->removeComponentsByType('GridFieldAddNewButton');
+					$itemsFieldConfig->removeComponentsByType('GridFieldEditButton');
 				}
 			}
 		}
