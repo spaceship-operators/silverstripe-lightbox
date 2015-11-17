@@ -27,11 +27,7 @@ class LightboxAdmin extends ModelAdmin {
 	}
 
 	public static function getLightboxField($label = 'lightbox', $name = 'Lightbox') {
-		$lightboxArr = DataObject::get('Lightbox')->toArray();
-		$lightboxes = array();
-		foreach ($lightboxArr as $lightbox) {
-			$lightboxes[$lightbox->ID] = $lightbox->Title;
-		}
+		$lightboxes = Lightbox::get()->map('ID', 'Title');
 		return new DropdownField(
 			$label,
 			$name,
