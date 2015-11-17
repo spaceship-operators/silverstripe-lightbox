@@ -84,16 +84,21 @@ class Lightbox extends DataObject implements PermissionProvider {
 	}
 
 	public function canDelete($member = null) {
-		$relationships = $this->many_many();
+
+		$relationships = array_unique(array_merge(
+			($relations = Config::inst()->get($this->class, 'has_one')) ? $relations : array(),
+			($relations = Config::inst()->get($this->class, 'has_many')) ? $relations : array(),
+			($relations = Config::inst()->get($this->class, 'many_many')) ? $relations : array(),
+			($relations = Config::inst()->get($this->class, 'belongs_many_many')) ? $relations : array(),
+			($relations = Config::inst()->get($this->class, 'belongs_to')) ? $relations : array()
+		));
 		$has_relations = false;
 
-		if (!empty($relationships)) {
-			foreach($relationships as $name => $type) {
-				$relation = $this->{$name}();
-				if ($relation->exists() && $relation->count()) {
-					$has_relations = true;
-					break;
-				}
+		if (!empty($relationships)) foreach ($relationships as $name => $type) {
+			$relation = $this->{$name}();
+			if ($relation && $relation->exists()) {
+				$has_relations = true;
+				break;
 			}
 		}
 
