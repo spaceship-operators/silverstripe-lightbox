@@ -65,9 +65,13 @@ class DataObjectLightboxExtension extends DataExtension {
 
 		$boxesAdd = array_diff($newBoxes, $oldBoxes);
 		$boxesDel = array_diff($oldBoxes, $newBoxes);
-
-		$lightboxes->addMany($boxesAdd);
-		$lightboxes->removeMany($boxesDel);
+		
+		foreach($boxesAdd as $box) {
+			$lightboxes->add($box);
+		}
+		foreach($boxesDel as $box) {
+			$lightboxes->remove($box);
+		}
 	}
 
 	/**
