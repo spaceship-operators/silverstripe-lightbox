@@ -32,6 +32,8 @@ class Lightbox extends DataObject implements PermissionProvider {
 		'CloseButtonLabel' => 'Close',
 	);
 
+	private $relations = array();
+
 	public function getCMSFields() {
 		$fields = parent::getCMSFields();
 
@@ -39,7 +41,7 @@ class Lightbox extends DataObject implements PermissionProvider {
 		$fields->add(new LiteralField('LightboxDisable', '<div class="lightbox-disable"></div>'));
 
 		// check for relationship tabs
-		$relationships = $this->many_many();
+		$relationships = $this->getRelationships();
 		if (!empty($relationships)) {
 			foreach($relationships as $name => $type) {
 				$itemsField = $fields->dataFieldByName($name);
@@ -75,6 +77,18 @@ class Lightbox extends DataObject implements PermissionProvider {
 		return Controller::join_links('lightbox', 'lightbox-'.$this->ID);
 	}
 
+	public function getRelationships() {
+		if (empty($this->relations)) {
+			$this->relations = array_unique(array_merge(
+				($relations = Config::inst()->get($this->class, 'has_one')) ? $relations : array(),
+				($relations = Config::inst()->get($this->class, 'has_many')) ? $relations : array(),
+				($relations = Config::inst()->get($this->class, 'many_many')) ? $relations : array(),
+				($relations = Config::inst()->get($this->class, 'belongs_many_many')) ? $relations : array(),
+				($relations = Config::inst()->get($this->class, 'belongs_to')) ? $relations : array()
+			));
+		}
+		return $this->relations;
+	}
 	public function canView($member = null) {
 		return Permission::check('CMS_ACCESS_LightboxAdmin');
 	}
@@ -85,13 +99,7 @@ class Lightbox extends DataObject implements PermissionProvider {
 
 	public function canDelete($member = null) {
 
-		$relationships = array_unique(array_merge(
-			($relations = Config::inst()->get($this->class, 'has_one')) ? $relations : array(),
-			($relations = Config::inst()->get($this->class, 'has_many')) ? $relations : array(),
-			($relations = Config::inst()->get($this->class, 'many_many')) ? $relations : array(),
-			($relations = Config::inst()->get($this->class, 'belongs_many_many')) ? $relations : array(),
-			($relations = Config::inst()->get($this->class, 'belongs_to')) ? $relations : array()
-		));
+		$relationships = $this->getRelationships();
 		$has_relations = false;
 
 		if (!empty($relationships)) foreach ($relationships as $name => $type) {
