@@ -80,6 +80,7 @@
 			// hide the modal
 			modal.hide();
 			$html.removeClass('lightbox');
+			$(document).trigger('lightbox:closed', [$html]);
 
 			if (isAndroid) {
 				// Scroll back to screen position before lightbox is opened
