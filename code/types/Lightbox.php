@@ -35,27 +35,37 @@ class Lightbox extends DataObject implements PermissionProvider {
 	private $relations = array();
 
 	public function getCMSFields() {
-		$fields = parent::getCMSFields();
 
-		// tell the javascript to disable lightbox options for this form
+		$fields = $this->scaffoldFormFields(array(
+			'tabbed' => true,
+			'ajaxSafe' => true
+		));
+
+		// Tell the javascript to disable lightbox options for this form
 		$fields->add(new LiteralField('LightboxDisable', '<div class="lightbox-disable"></div>'));
 
-		// check for relationship tabs
+		// Add dependent objects which would prevent this object from being deleted
 		$relationships = $this->getRelationships();
-		if (!empty($relationships)) {
-			foreach($relationships as $name => $type) {
-				$itemsField = $fields->dataFieldByName($name);
-				if ($itemsField) {
-					$itemsFieldConfig = GridFieldConfig_RecordEditor::create();
-					$itemsField->setConfig($itemsFieldConfig)->setTitle(false);
+		if (!empty($relationships)) foreach ($relationships as $name => $type) {
 
-					// Remove buttons to manage the relationship, as this is done automatically
-					$itemsFieldConfig->removeComponentsByType('GridFieldDeleteAction');
-					$itemsFieldConfig->removeComponentsByType('GridFieldAddNewButton');
-					$itemsFieldConfig->removeComponentsByType('GridFieldEditButton');
-				}
+			// For has_one and belongs_to relations
+			$result = $this->{$name}();
+
+			if (!$result instanceof DataList) {
+				$result = new ArrayList(array($result));
 			}
+
+			$fields->addFieldToTab(
+				'Root.Dependents',
+				GridField::create(
+					$name,
+					"Dependent $name",
+					$result
+				)
+			);
 		}
+
+		$this->extend('updateCMSFields', $fields);
 
 		return $fields;
 	}
@@ -79,16 +89,17 @@ class Lightbox extends DataObject implements PermissionProvider {
 
 	public function getRelationships() {
 		if (empty($this->relations)) {
-			$this->relations = array_unique(array_merge(
+			$this->relations = array_merge(
 				($relations = Config::inst()->get($this->class, 'has_one')) ? $relations : array(),
 				($relations = Config::inst()->get($this->class, 'has_many')) ? $relations : array(),
 				($relations = Config::inst()->get($this->class, 'many_many')) ? $relations : array(),
 				($relations = Config::inst()->get($this->class, 'belongs_many_many')) ? $relations : array(),
 				($relations = Config::inst()->get($this->class, 'belongs_to')) ? $relations : array()
-			));
+			);
 		}
 		return $this->relations;
 	}
+
 	public function canView($member = null) {
 		return Permission::check('CMS_ACCESS_LightboxAdmin');
 	}

@@ -63,7 +63,8 @@
 					modal.removeClass('lightbox-loading');
 				},
 				success: function (html) {
-					var $html = content.html(html);
+					$html = $(html);
+					content.empty().append($html);
 					$(document).trigger('lightbox:displayed', [$html]);
 				},
 				error: function (jqXHR, textStatus) {
