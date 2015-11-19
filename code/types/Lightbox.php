@@ -60,7 +60,7 @@ class Lightbox extends DataObject implements PermissionProvider {
 					'Root.Dependents',
 					GridField::create(
 						$name,
-						"Dependent $name",
+						$name,
 						$result
 					)
 				);
