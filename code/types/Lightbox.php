@@ -56,11 +56,12 @@ class Lightbox extends DataObject implements PermissionProvider {
 					$result = new ArrayList(array($result));
 				}
 
+				$labels = $this->fieldLabels(true);
 				$fields->addFieldToTab(
 					'Root.Dependents',
 					GridField::create(
 						$name,
-						$name,
+						(isset($labels[$name])) ? $labels[$name] : $name,
 						$result
 					)
 				);
