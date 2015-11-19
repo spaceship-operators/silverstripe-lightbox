@@ -45,24 +45,26 @@ class Lightbox extends DataObject implements PermissionProvider {
 		$fields->add(new LiteralField('LightboxDisable', '<div class="lightbox-disable"></div>'));
 
 		// Add dependent objects which would prevent this object from being deleted
-		$relationships = $this->getDependents();
-		if (!empty($relationships)) foreach ($relationships as $name) {
+		if ($this->ID) {
+			$relationships = $this->getDependents();
+			if (!empty($relationships)) foreach ($relationships as $name) {
 
-			// For has_one and belongs_to relations
-			$result = $this->{$name}();
+				// For has_one and belongs_to relations
+				$result = $this->{$name}();
 
-			if (!$result instanceof DataList) {
-				$result = new ArrayList(array($result));
+				if (!$result instanceof DataList) {
+					$result = new ArrayList(array($result));
+				}
+
+				$fields->addFieldToTab(
+					'Root.Dependents',
+					GridField::create(
+						$name,
+						"Dependent $name",
+						$result
+					)
+				);
 			}
-
-			$fields->addFieldToTab(
-				'Root.Dependents',
-				GridField::create(
-					$name,
-					"Dependent $name",
-					$result
-				)
-			);
 		}
 
 		$this->extend('updateCMSFields', $fields);
