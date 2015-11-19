@@ -45,8 +45,8 @@ class Lightbox extends DataObject implements PermissionProvider {
 		$fields->add(new LiteralField('LightboxDisable', '<div class="lightbox-disable"></div>'));
 
 		// Add dependent objects which would prevent this object from being deleted
-		$relationships = $this->getRelationships();
-		if (!empty($relationships)) foreach ($relationships as $name => $type) {
+		$relationships = $this->getDependents();
+		if (!empty($relationships)) foreach ($relationships as $name) {
 
 			// For has_one and belongs_to relations
 			$result = $this->{$name}();
@@ -87,17 +87,19 @@ class Lightbox extends DataObject implements PermissionProvider {
 		return Controller::join_links('lightbox', 'lightbox-'.$this->ID);
 	}
 
-	public function getRelationships() {
-		if (empty($this->relations)) {
-			$this->relations = array_merge(
-				($relations = Config::inst()->get($this->class, 'has_one')) ? $relations : array(),
-				($relations = Config::inst()->get($this->class, 'has_many')) ? $relations : array(),
-				($relations = Config::inst()->get($this->class, 'many_many')) ? $relations : array(),
-				($relations = Config::inst()->get($this->class, 'belongs_many_many')) ? $relations : array(),
-				($relations = Config::inst()->get($this->class, 'belongs_to')) ? $relations : array()
-			);
-		}
-		return $this->relations;
+	/**
+	 * The relations to the lightbox object that depend on the lightbox object existing, for example
+	 * the site tree relationship.
+	 *
+	 * @return array List of relation names
+	 */
+	public function getDependents() {
+		$dependents =  array(
+			'SiteTrees'
+		);
+
+		$this->extend('udpateDependents', $dependents);
+		return $dependents;
 	}
 
 	public function canView($member = null) {
@@ -110,10 +112,10 @@ class Lightbox extends DataObject implements PermissionProvider {
 
 	public function canDelete($member = null) {
 
-		$relationships = $this->getRelationships();
+		$relationships = $this->getDependents();
 		$has_relations = false;
 
-		if (!empty($relationships)) foreach ($relationships as $name => $type) {
+		if (!empty($relationships)) foreach ($relationships as $name) {
 			$relation = $this->{$name}();
 			if ($relation && $relation->exists()) {
 				$has_relations = true;
