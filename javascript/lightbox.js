@@ -42,7 +42,7 @@
 
 	// Bind click events
 	$(document)
-		.on('click', 'a.lightbox', function (e) {
+		.on('click touchend MSPointerUp', 'a.lightbox', function (e) {
 			// data url property first, otherwise href as a fallback
 			var href = $(this).data('url') || $(this).attr('href'),
 				content = modal.find('.lightbox-content').html('');
@@ -75,12 +75,12 @@
 			// stop the link from following the link
 			e.preventDefault();
 		})
-		.on('click', '.lightbox-close-btn, .lightbox-overlay', function (e) {
+		.on('click touchend MSPointerUp', '.lightbox-close-btn, .lightbox-overlay', function (e) {
 
 			// hide the modal
 			modal.hide();
 			$html.removeClass('lightbox');
-			$(document).trigger('lightbox:closed', [$html]);
+			$(document).trigger('lightbox:closed');
 
 			if (isAndroid) {
 				// Scroll back to screen position before lightbox is opened
