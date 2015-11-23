@@ -48,7 +48,6 @@
 				href = $item.data('url') || $item.attr('href'),
 				content = modal.find('.lightbox-content').html(''),
 				jsonp = $item.data('lightbox-jsonp') || $html.data('lightbox-jsonp');
-			modal.show().addClass('lightbox-loading');
 
 			$html.addClass('lightbox');
 			modal.show().addClass('lightbox-loading');
