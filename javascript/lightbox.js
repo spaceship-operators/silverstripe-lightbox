@@ -44,8 +44,10 @@
 	$(document)
 		.on('click touchend MSPointerUp', 'a.lightbox', function (e) {
 			// data url property first, otherwise href as a fallback
-			var href = $(this).data('url') || $(this).attr('href'),
-				content = modal.find('.lightbox-content').html('');
+			var $item = $(this),
+				href = $item.data('url') || $item.attr('href'),
+				content = modal.find('.lightbox-content').html(''),
+				jsonp = $item.data('lightbox-jsonp') || $html.data('lightbox-jsonp');
 			modal.show().addClass('lightbox-loading');
 
 			$html.addClass('lightbox');
@@ -63,13 +65,17 @@
 					modal.removeClass('lightbox-loading');
 				},
 				success: function (html) {
-					var $html = $(html);
-					content.empty().append($html);
-					$(document).trigger('lightbox:displayed', [$html]);
+					var $content = (jsonp) ? $(html.content) : $(html);
+
+					content.empty().append($content);
+
+					$(document).trigger('lightbox:displayed', [$content]);
 				},
 				error: function (jqXHR, textStatus) {
 					content.html(textStatus);
-				}
+				},
+				// not recommended to use jsonp if you have something like static cache
+				dataType: (jsonp) ? 'jsonp' : 'html'
 			});
 
 			// stop the link from following the link

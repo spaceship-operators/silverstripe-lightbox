@@ -26,7 +26,16 @@ class LightboxController extends Controller {
 		$lightbox = DataObject::get_by_id('Lightbox', $id);
 
 		if ($lightbox) {
-			return $lightbox->renderWith(get_class($lightbox));
+			$callback = $request->getVar('callback');
+			$content = $lightbox->renderWith(get_class($lightbox));
+
+			if ($callback) {
+				$jsonContent = array('content' => $content->getValue());
+				return "$callback(". json_encode($jsonContent) .");";
+			}
+			else {
+				return $content;
+			}
 		}
 		$this->httpError(404, ErrorPage::response_for(404));
 	}
