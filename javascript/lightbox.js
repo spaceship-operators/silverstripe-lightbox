@@ -49,7 +49,7 @@
 				content = modal.find('.lightbox-content').html(''),
 				jsonp = $item.data('lightbox-jsonp') || $html.data('lightbox-jsonp');
 
-			$html.addClass('lightbox');
+			$html.addClass('lightbox-shown');
 			modal.show().addClass('lightbox-loading');
 
 			if (isAndroid) {
@@ -84,7 +84,7 @@
 
 			// hide the modal
 			modal.hide();
-			$html.removeClass('lightbox');
+			$html.removeClass('lightbox-shown');
 			$(document).trigger('lightbox:closed');
 
 			if (isAndroid) {
