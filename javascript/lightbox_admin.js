@@ -54,7 +54,8 @@
 			 */
 			getLinkAttributes: function () {
 				var results = this._super(),
-					linkType = this.find(':input[name=LinkType]:checked').val();
+					linkType = this.find(':input[name=LinkType]:checked').val(),
+					openByDefault = this.find(':input[name=LightboxOpenByDefault]').is(':checked')
 
 				if (linkType == 'lightbox') {
 					var value = this.find(':input[name=lightbox]').val();
@@ -63,6 +64,7 @@
 					}
 					results.href = '#';
 					results.class = 'lightbox';
+					if(openByDefault) results.class += ' lightbox-open-by-default';
 				}
 
 				return results;
@@ -108,6 +110,18 @@
 				var linkType = this.find(':input[name=LinkType]:checked').val();
 
 				if(linkType === 'lightbox') this.find('.field#TargetBlank').hide();
+
+				this.find('#LightboxOpenByDefault').hide();
+				if(linkType === 'lightbox') this.find('#LightboxOpenByDefault').show();
+			},
+
+			onmatch: function () {
+				// For some reason, the default html template used does not allow you to 
+				// click on the label to toggle the checkbox, so we do it ourselves.
+				var self = this;
+				self.find('#LightboxOpenByDefault label').click(function(){
+					self.find('#LightboxOpenByDefault').click();
+				});
 			}
 		});
 	});

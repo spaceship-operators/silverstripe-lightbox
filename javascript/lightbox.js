@@ -95,5 +95,9 @@
 			e.preventDefault();
 		});
 
+	// Open by default
+	$(document).ready(function(){
+		$('.lightbox.lightbox-open-by-default').click();
+	});
 
 }(jQuery, document, window));

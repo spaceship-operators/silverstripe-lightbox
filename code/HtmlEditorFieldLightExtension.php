@@ -10,6 +10,7 @@ class HtmlEditorField_ToolbarLightboxExtension extends DataExtension {
 	public function updateLinkForm(&$form) {
 		$enabled = (int)$this->owner->request->getVar('lightbox');
 		$fields = $form->fields;
+		/* @var $fields FieldList */
 
 		$field = $fields->dataFieldByName('LinkType');
 		$options = $field->getSource();
@@ -30,6 +31,12 @@ class HtmlEditorField_ToolbarLightboxExtension extends DataExtension {
 				'internal');
 
 			$form->setFields($fields);
+		}
+
+		// also add an option to have the lightbox open by default
+		if ($enabled) {
+			$fields->insertAfter(CheckboxField::create('LightboxOpenByDefault', 'Lightbox open by default'), 'lightbox');
+
 		}
 	}
 }
